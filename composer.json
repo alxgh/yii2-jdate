@@ -10,6 +10,9 @@
             "email": "mm.gholamian@yahoo.com"
         }
     ],
+    "require": {
+        "yiisoft/yii2": "*"
+    },
     "autoload": {
         "psr-4": {
             "jDate\\": ""
