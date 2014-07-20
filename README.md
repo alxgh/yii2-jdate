@@ -22,7 +22,7 @@ or add
 to the require section of your `composer.json` file.
 
 
-Usage
+Usage of "DateTime"
 -----
 
 Once the extension is installed, add it as a component  :
@@ -43,4 +43,32 @@ You can access dates and times as variable :
 
 ```php
 Yii::$app->jdate->Y;
+```
+
+Usage of "DatePicker"
+-----
+
+It is a widget to make a input, box to giver jalali date from user.
+
+A basic usage:
+```php
+<?= jDate\DatePicker::widget([
+	'name' => 'datepicker'
+]) ?>
+```
+
+If you want set default date set "value":
+
+```php
+<?= jDate\DatePicker::widget([
+	'name' => 'datepicker', 'value' => '1394/01/01'
+]) ?>
+```
+
+Using a model:
+
+```php
+<?= jDate\DatePicker::widget([
+	'model' => $model, 'attribute' => 'date'
+]) ?>
 ```
