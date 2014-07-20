@@ -16,7 +16,7 @@ class DateTime
 		{
 			throw new InvalidParamException(
 				"Date format is inavlid! " .
-				"It must be string."
+				"This must be a string."
 			);
 		}
 
@@ -178,25 +178,26 @@ class DateTime
 	function getDayNames()
 	{
 		return [
+			'saturday' => 'شنبه',
 			'sunday' => 'یکشنیه',
 			'monday' => 'دو شنیه',
 			'tuesdat' => 'سه شنیه',
 			'wednesday' => 'چهار شنیه',
 			'thursday' => 'پنج شنیه',
 			'friday' => 'جمعه',
-			'saturday' => 'شنبه',
+			
 		];
 	}
 	function getDayShortNames()
 	{
 		return [
+			'sat' => 'ش',
 			'sun' => 'ی',
 			'mon' => 'د',
 			'tue' => 'س',
 			'wed' => 'چ',
 			'thu' => 'پ',
 			'fri' => 'ج',
-			'sat' => 'ش',
 		];
 	}
 
