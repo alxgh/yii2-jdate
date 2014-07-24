@@ -3,36 +3,15 @@
 namespace jDate;
 
 use yii\helpers\Json;
-use yii\base\Model;
-use yii\base\InvalidConfigException;
 use yii\helpers\Html;
+use yii\widgets\InputWidget;
 /**
  * Jalali date & time.
  * @author Mohammad Mahdi Gholomian.
  * @copyright 2014 mm.gholamian@yahoo.com
  */
-class DatePicker extends \yii\base\Widget
+class DatePicker extends InputWidget
 {
-	/**
-	 * @var Model the data model that this widget is associated with.
-	 */
-	public $model;
-	/**
-	 * @var string the model attribute that this widget is associated with.
-	 */
-	public $attribute;
-	/**
-	 * @var string the input name. This must be set if [[model]] and [[attribute]] are not set.
-	 */
-	public $name;
-	/**
-	 * @var string the input value.
-	 */
-	public $value;
-	/**
-	 * @var array Input options.
-	 */
-	public $options = [];
 	/**
 	 * @var array Date picker options.
 	 */
@@ -41,15 +20,6 @@ class DatePicker extends \yii\base\Widget
 	public function init()
 	{
 		parent::init();
-		if (!isset($this->options['id'])) {
-			$this->options['id'] = $this->getId();
-		}
-		if (!$this->hasModel() && $this->name === null) {
-			throw new InvalidConfigException("Either 'name', or 'model' and 'attribute' properties must be specified.");
-		}
-		if ($this->hasModel() && !isset($this->options['id'])) {
-			$this->options['id'] = Html::getInputId($this->model, $this->attribute);
-		}
 	}
 	
 	function run()
@@ -88,12 +58,5 @@ class DatePicker extends \yii\base\Widget
 		$options = empty($this->clientOptions) ? '' : Json::encode($this->clientOptions);
 		$js = "jQuery('#$id').$name($options);";
 		$this->getView()->registerJs($js);
-	}
-	/**
-	 * @return boolean whether this widget is associated with a data model.
-	 */
-	protected function hasModel()
-	{
-		return $this->model instanceof Model && $this->attribute !== null;
 	}
 }
