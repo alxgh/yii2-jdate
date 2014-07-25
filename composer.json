@@ -1,13 +1,13 @@
 {
-    "name": "mohammad-mahdy/yii2-jdate",
+    "name": "cyclops24/yii2-jdate",
     "description": "Jalali date & time.",
     "type": "library",
     "keywords": ["yii2","extension","jDate","Jalali Data Time"],
     "license": "BSD-3-Clause",
     "authors": [
         {
-            "name": "Mohammad Mahdi Gholamian",
-            "email": "mm.gholamian@yahoo.com"
+            "name": "Babak Haj Azim Zanjani based on Mohammad Mahdi Gholamian edition",
+            "email": "cyclops.dll@gmail.com"
         }
     ],
     "require": {
