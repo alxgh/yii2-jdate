@@ -5,7 +5,7 @@ namespace jDate;
 use yii\base\InvalidParamException;
 /**
  * Jalali date & time.
- * @author Mohammad Mahdi Qolomian.
+ * @author Mohammad Mahdi Gholomian.
  * @copyright 2014 mm.gholamian@yahoo.com
  */
 class DateTime
