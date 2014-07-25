@@ -1,6 +1,6 @@
 CYCLOPS Jalali Date (Yii2 Extension)
 ===========
-CYCLOPS Jalali date & time is an extension for yii2. It's a fork of [Jalali date & time](https://github.com/mohammad-mahdy/yii2-jdate) presented by [Mohammad Mahdi Gholamian](https://github.com/mohammad-mahdy)
+CYCLOPS Jalali date & time is an extension for yii2. It's a fork of [Jalali date & time](https://github.com/mohammad-mahdy/yii2-jdate) presented by [Mohammad Mahdi Gholamian](https://github.com/mohammad-mahdy). This fork works with [jdf (Jalali Date Function)](http://jdf.scr.ir/) presented by Reza Gholampanahi.
 
 Installation
 ------------
