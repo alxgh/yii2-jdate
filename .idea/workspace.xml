@@ -26,8 +26,10 @@
       <file leaf-file-name="DateTime.php" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/DateTime.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="608" column="80" selection-start="20725" selection-end="20725" vertical-scroll-proportion="0.69034606" vertical-offset="9957" max-vertical-offset="10506">
-              <folding />
+            <state line="606" column="20" selection-start="20634" selection-end="20634" vertical-scroll-proportion="0.90710384" vertical-offset="6166" max-vertical-offset="6868">
+              <folding>
+                <element signature="e#6700#13561#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -163,8 +165,10 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/DateTime.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="608" column="80" selection-start="20725" selection-end="20725" vertical-scroll-proportion="0.69034606" vertical-offset="9957" max-vertical-offset="10506">
-          <folding />
+        <state line="606" column="20" selection-start="20634" selection-end="20634" vertical-scroll-proportion="0.90710384" vertical-offset="6166" max-vertical-offset="6868">
+          <folding>
+            <element signature="e#6700#13561#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>

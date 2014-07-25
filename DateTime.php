@@ -606,7 +606,7 @@ class DateTime
             if($gd<=$v)break;
             $gd-=$v;
         }
-        return($mod=='')?array($gy,$this->$gm,$gd):$gy.$mod.$this->$gm.$mod.$gd;
+        return($mod=='')?array($gy,$gm,$gd):$gy.$mod.$gm.$mod.$gd;
     }
 
     /* [ jdf.php ] version 2.55 ?> Download new version from [ http://jdf.scr.ir ] */
