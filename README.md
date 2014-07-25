@@ -80,8 +80,8 @@ Use in `active form`:
 <?= $form->field($model, 'fieldname')->widget(jDate\DatePicker::className()) ?>
 ```
 
-###Datepicker Options###
-
+###Datepicker ClientOptions###
+> Add this to ClientOptions
 ####Change date picker size:
 
 ```php
@@ -132,7 +132,7 @@ $('#your id').trigger('change');
 ```php
 <?= jDate\DatePicker::widget([
 	'model' => $model, 'attribute' => 'date',
-	'options' => [
+	'ClientOptions' => [
 		'onHide' => 'function(){alert("Datepicker is now hidden!")}'
 	]
 ]) ?>
@@ -142,7 +142,7 @@ $('#your id').trigger('change');
 ```php
 <?= jDate\DatePicker::widget([
 	'model' => $model, 'attribute' => 'date',
-	'options' => [
+	'ClientOptions' => [
 		'onSelect' => 'function(){alert("Date selected!")}'
 	]
 ]) ?>
@@ -153,7 +153,7 @@ $('#your id').trigger('change');
 ```php
 <?= jDate\DatePicker::widget([
 	'model' => $model, 'attribute' => 'date',
-	'options' => [
+	'ClientOptions' => [
 		'onShow' => 'function(){alert("Hello!")}'
 	]
 ]) ?>
