@@ -39,13 +39,7 @@ Once the extension is installed, add it as a component in your config file:
 Now you can use in your project:
 
 ```php
-Yii::$app->jdate->date('Y-m-d');
-```
-
-You can access dates and times as variable :
-
-```php
-Yii::$app->jdate->Y;
+echo Yii::$app->jdate->jdate('Y/m/d'); // ۱۳۹۳/۰۵/۰۳
 ```
 
 Usage of `DatePicker`
