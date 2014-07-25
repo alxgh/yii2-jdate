@@ -55,8 +55,45 @@ class DatePicker extends InputWidget
 	{
 		$name = 'persianDatepicker';
 		$id = $this->options['id'];
+		if(! isset($this->clientOptions['onSelect'])) {
+			$this->clientOptions['onSelect'] = "function(){
+				$('#$id').trigger('change');
+			}";
+		}
+
+		$onSelect = $this->clientOptions['onSelect'];
+
+		if(isset($this->clientOptions['onShow'])) {
+			$onShow =  $this->clientOptions['onSelect'];
+		}
+
+		if(isset($this->clientOptions['onHide'])) {
+			$onShow =  $this->clientOptions['onHide'];
+		}
+
+		unset($this->clientOptions['onHide'], $this->clientOptions['onShow'], $this->clientOptions['onSelect']);
+
 		$options = empty($this->clientOptions) ? '' : Json::encode($this->clientOptions);
+		
+		if(isset($onShow) || isset($onHide) || isset($onSelect)) {
+			$options = substr($options, 0, -1);
+
+			if(isset($onShow)) {
+				$options .= ', "onShow" : ' . $onShow;
+			}
+
+			if(isset($onHide)) {
+				$options .= ', "onHide" : ' . $onHide;
+			}
+
+			if(isset($onSelect)) {
+				$options .= ', "onSelect" : ' . $onSelect;
+			}
+			$options .= '}';
+		}
+
 		$js = "jQuery('#$id').$name($options);";
+		
 		$this->getView()->registerJs($js);
 	}
 }
