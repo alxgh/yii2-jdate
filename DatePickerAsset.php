@@ -10,7 +10,7 @@ use yii\web\AssetBundle;
  */
 class DatePickerAsset extends AssetBundle
 {
-	public $sourcePath = '@vendor/mohammad-mahdy/yii2-jdate/assets';
+	public $sourcePath = '@vendor/cyclops24/yii2-jdate/assets';
 	public $js = [
 		'js/persianDatepicker.min.js',
 	];
