@@ -80,8 +80,10 @@ Use in `active form`:
 <?= $form->field($model, 'fieldname')->widget(jDate\DatePicker::className()) ?>
 ```
 
-###Datepicker ClientOptions###
-> Add this to ClientOptions
+###Datepicker `ClientOptions`###
+
+> Add these to `ClientOptions` var.
+
 ####Change date picker size:
 
 ```php
@@ -99,7 +101,6 @@ Use in `active form`:
 ]
 ```
 
-
 ####Use english numbers in date picker:
 
 ```php
@@ -116,8 +117,19 @@ Use in `active form`:
 ]
 ```
 
+###Datepicker `Theme`###
 
-###Datepicker Events#####
+Now date picker have 2 theme `default` and `dark`.
+
+For set theme set `theme` var.
+
+```php
+<?= jDate\DatePicker::widget([
+	'model' => $model, 'attribute' => 'date', 'theme' => 'dark'
+]) ?>
+```
+
+###Datepicker `Events`#####
 
 > **NOTE** : If you want rewriting onSelect event and using `active form` add `options[id]` and add 
 > 

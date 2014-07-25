@@ -17,6 +17,7 @@ class DatePicker extends InputWidget
 	 */
 	public $clientOptions = ['formatDate' => "YYYY/0M/0D"];
 
+	public $theme = 'default';
 	public function init()
 	{
 		parent::init();
@@ -24,19 +25,32 @@ class DatePicker extends InputWidget
 	
 	function run()
 	{
-		$this->registerAsset();
-
 		echo $this->renderInput();
 
 		$this->renderJsCode();
 	}
 	/**
-	 * Register datepicker asset into view.
+	 * Register datepicker default theme asset into view.
 	 */
-	function registerAsset()
+	function registerDefaultThemeAsset()
+	{
+		DatePickerDefaultThemeAsset::register($this->getView());
+	}
+	/**
+	 * Register datepicker dark theme asset into view.
+	 */
+	function registerDarkThemeAsset()
+	{
+		DatePickerDarkThemeAsset::register($this->getView());
+	}
+	/**
+	 * Register datepicker assets without into view.
+	 */
+	function registerNoThemeAsset()
 	{
 		DatePickerAsset::register($this->getView());
 	}
+
 	/**
 	 * Render input.
 	 */
@@ -54,11 +68,21 @@ class DatePicker extends InputWidget
 	function renderJsCode()
 	{
 		$name = 'persianDatepicker';
+
 		$id = $this->options['id'];
+
+		$this->clientOptions['theme'] = $this->theme;
+
 		if(! isset($this->clientOptions['onSelect'])) {
 			$this->clientOptions['onSelect'] = "function(){
 				$('#$id').trigger('change');
 			}";
+		}
+
+		if(in_array($this->theme, ['default', 'dark'])) {
+			$this->{"register" . ucfirst($this->theme) . "ThemeAsset"}();
+		} else {
+				$this->registerNoThemeAsset();
 		}
 
 		$onSelect = $this->clientOptions['onSelect'];
@@ -91,7 +115,6 @@ class DatePicker extends InputWidget
 			}
 			$options .= '}';
 		}
-
 		$js = "jQuery('#$id').$name($options);";
 		
 		$this->getView()->registerJs($js);

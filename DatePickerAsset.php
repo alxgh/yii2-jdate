@@ -14,9 +14,6 @@ class DatePickerAsset extends AssetBundle
 	public $js = [
 		'js/persianDatepicker.min.js',
 	];
-	public $css = [
-		'css/persianDatepicker-default.css',
-	];
 	public $depends = [
 		'yii\web\JqueryAsset',
 	];
