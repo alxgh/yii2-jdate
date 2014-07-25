@@ -1,31 +1,34 @@
-Jalali Date
+CYCLOPS Jalali Date (Yii2 Extension)
 ===========
-Jalali date & time is an extension for yii2.
+CYCLOPS Jalali date & time is an extension for yii2. It's a fork of [Jalali date & time](https://github.com/mohammad-mahdy/yii2-jdate) presented by [Mohammad Mahdi Gholamian](https://github.com/mohammad-mahdy). This fork works with [jdf (Jalali Date Function)](http://jdf.scr.ir/) presented by Reza Gholampanahi.
 
 Installation
 ------------
 
 The preferred way to install this extension is through [composer](http://getcomposer.org/download/).
 
-Either run
+add
+```
+"repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/cyclops24/yii2-jdate"
+        }
+    ],
+```
+to your `composer.json` root section and then
 
 ```
-php composer.phar require --prefer-dist mohammad-mahdy/yii2-jdate "*"
+"cyclops24/yii2-jdate": "*"
 ```
 
-or add
-
-```
-"mohammad-mahdy/yii2-jdate": "*"
-```
-
-to the require section of your `composer.json` file.
+to the require section.
 
 
 Usage of `DateTime`
 ===================
 
-Once the extension is installed, add it as a component  :
+Once the extension is installed, add it as a component in your config file:
 
 ```php
 'jdate' => [
@@ -36,13 +39,7 @@ Once the extension is installed, add it as a component  :
 Now you can use in your project:
 
 ```php
-Yii::$app->jdate->date('Y-m-d');
-```
-
-You can access dates and times as variable :
-
-```php
-Yii::$app->jdate->Y;
+echo Yii::$app->jdate->jdate('Y/m/d'); // ۱۳۹۳/۰۵/۰۳
 ```
 
 Usage of `DatePicker`
