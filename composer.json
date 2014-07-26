@@ -2,7 +2,7 @@
     "name": "mohammad-mahdy/yii2-jdate",
     "description": "Jalali date & time.",
     "type": "library",
-    "keywords": ["yii2","extension","jDate","Jalali Data Time"],
+    "keywords": ["yii2", "yii", "yiiframeowrk", "persian date","extension","jDate","Jalali Data Time"],
     "license": "BSD-3-Clause",
     "authors": [
         {
