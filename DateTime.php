@@ -180,10 +180,10 @@ class DateTime
 		return [
 			'saturday' => 'شنبه',
 			'sunday' => 'یکشنیه',
-			'monday' => 'دو شنیه',
-			'tuesdat' => 'سه شنیه',
-			'wednesday' => 'چهار شنیه',
-			'thursday' => 'پنج شنیه',
+			'monday' => 'دوشنبه',
+			'tuesdat' => 'سه شنبه',
+			'wednesday' => 'چهارشنبه',
+			'thursday' => 'پنجشنبه',
 			'friday' => 'جمعه',
 			
 		];
