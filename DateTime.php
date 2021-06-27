@@ -179,7 +179,7 @@ class DateTime
 	{
 		return [
 			'saturday' => 'شنبه',
-			'sunday' => 'یکشنیه',
+			'sunday' => 'یکشنبه',
 			'monday' => 'دوشنبه',
 			'tuesday' => 'سه شنبه',
 			'wednesday' => 'چهارشنبه',
