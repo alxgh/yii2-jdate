@@ -10,6 +10,7 @@ use yii\widgets\InputWidget;
  * Jalali date & time.
  * @author Mohammad Mahdi Gholomian.
  * @copyright 2014 mm.gholamian@yahoo.com
+ * @author Hossein Dehnavi (fork contributions)
  */
 class DatePicker extends InputWidget
 {
@@ -88,10 +89,15 @@ class DatePicker extends InputWidget
 		// Set theme name in clientOptions.
 		$this->clientOptions['theme'] = $this->theme;
 		// Build onSelect event.
-		if(! isset($this->clientOptions['onSelect'])) {
-			$this->clientOptions['onSelect'] = "function(){
-				$('#$id').trigger('change');
-			}";
+		$callbacks = [];
+		foreach (['onShow', 'onHide', 'onSelect'] as $event) {
+			if (isset($this->clientOptions[$event])) {
+				$callbacks[$event] = $this->clientOptions[$event];
+				unset($this->clientOptions[$event]);
+			}
+		}
+		if (!isset($callbacks['onSelect'])) {
+			$callbacks['onSelect'] = 'function(){jQuery(' . Json::encode('#' . $id) . ').trigger("change");}';
 		}
 		// Register theme assets.
 		if(in_array($this->theme, ['default', 'dark'])) {
@@ -99,38 +105,13 @@ class DatePicker extends InputWidget
 		} else {
 				$this->registerNoThemeAsset();
 		}
-		// Add events.
-		$onSelect = $this->clientOptions['onSelect'];
-
-		if(isset($this->clientOptions['onShow'])) {
-			$onShow =  $this->clientOptions['onSelect'];
+		$options = Json::encode((object) $this->clientOptions);
+		$options = substr($options, 0, -1);
+		foreach ($callbacks as $event => $callback) {
+			$options .= ', ' . Json::encode($event) . ' : ' . $callback;
 		}
-
-		if(isset($this->clientOptions['onHide'])) {
-			$onShow =  $this->clientOptions['onHide'];
-		}
-
-		unset($this->clientOptions['onHide'], $this->clientOptions['onShow'], $this->clientOptions['onSelect']);
-
-		$options = empty($this->clientOptions) ? '' : Json::encode($this->clientOptions);
-		
-		if(isset($onShow) || isset($onHide) || isset($onSelect)) {
-			$options = substr($options, 0, -1);
-
-			if(isset($onShow)) {
-				$options .= ', "onShow" : ' . $onShow;
-			}
-
-			if(isset($onHide)) {
-				$options .= ', "onHide" : ' . $onHide;
-			}
-
-			if(isset($onSelect)) {
-				$options .= ', "onSelect" : ' . $onSelect;
-			}
-			$options .= '}';
-		}
-		$js = "jQuery('#$id').$name($options);";
+		$options .= '}';
+		$js = 'jQuery(' . Json::encode('#' . $id) . ').' . $name . '(' . $options . ');';
 		// Register js code.
 		$this->getView()->registerJs($js);
 	}

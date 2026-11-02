@@ -7,6 +7,7 @@ use yii\base\InvalidParamException;
  * Jalali date & time.
  * @author Mohammad Mahdi Gholomian.
  * @copyright 2014 mm.gholamian@yahoo.com
+ * @author Hossein Dehnavi (fork contributions)
  */
 class DateTime
 {
@@ -134,6 +135,34 @@ class DateTime
 		return $this->date($var);
 	}
 
+	/** Parse a Jalali date/time string into a JalaliDateTime value object. */
+	function parse($jalaliDate, $timezone = null)
+	{
+		return new JalaliDateTime($jalaliDate, $timezone);
+	}
+
+	/** Return a date value set to 00:00:00. */
+	function getStartOfDay($jalaliDate, $timezone = null)
+	{
+		return $this->parse($jalaliDate, $timezone)->startOfDay();
+	}
+
+	/** Return a date value set to 23:59:59. */
+	function getEndOfDay($jalaliDate, $timezone = null)
+	{
+		return $this->parse($jalaliDate, $timezone)->endOfDay();
+	}
+
+	function getDayStartTime()
+	{
+		return '00:00:00';
+	}
+
+	function getDayEndTime()
+	{
+		return '23:59:59';
+	}
+
 	function toJalaliDate($g_y, $g_m, $g_d) 
 	{
 
@@ -175,11 +204,118 @@ class DateTime
 		return (int) ($a / $b);
 	}
 
+	/**
+	 * Return the number of days in a Jalali month.
+	 */
+	function getDaysInJalaliMonth($year, $month)
+	{
+		$this->validateJalaliYearMonth($year, $month);
+		$start = $this->toGregorianDate((int) $year, (int) $month, 1);
+		$nextYear = (int) $year;
+		$nextMonth = (int) $month + 1;
+		if ($nextMonth > 12) {
+			$nextMonth = 1;
+			$nextYear++;
+		}
+		$next = $this->toGregorianDate($nextYear, $nextMonth, 1);
+		$startTimestamp = gmmktime(0, 0, 0, $start[1], $start[2], $start[0]);
+		$nextTimestamp = gmmktime(0, 0, 0, $next[1], $next[2], $next[0]);
+		return (int) (($nextTimestamp - $startTimestamp) / 86400);
+	}
+
+	/** Convert a Jalali date to a Gregorian [year, month, day] tuple. */
+	function toGregorianDate($year, $month, $day)
+	{
+		$this->validateJalaliYearMonth($year, $month);
+		$year = (int) $year;
+		$month = (int) $month;
+		$day = (int) $day;
+		if ($day < 1 || $day > 31) {
+			throw new InvalidParamException('Jalali day is invalid.');
+		}
+
+		$yearBase = $year - 474;
+		$cycle = (int) floor($yearBase / 2820);
+		$cycleRemainder = (($yearBase % 2820) + 2820) % 2820;
+		$cycleYear = 474 + $cycleRemainder;
+		$monthOffset = $month <= 7 ? ($month - 1) * 31 : (($month - 1) * 30 + 6);
+		$julianDay = $day + $monthOffset
+			+ (int) floor(($cycleYear * 682 - 110) / 2816)
+			+ ($cycleYear - 1) * 365
+			+ $cycle * 1029983
+			+ 1948320;
+
+		$l = $julianDay + 68569;
+		$n = (int) floor((4 * $l) / 146097);
+		$l -= (int) floor((146097 * $n + 3) / 4);
+		$i = (int) floor((4000 * ($l + 1)) / 1461001);
+		$l = $l - (int) floor((1461 * $i) / 4) + 31;
+		$j = (int) floor((80 * $l) / 2447);
+		$gregorianDay = $l - (int) floor((2447 * $j) / 80);
+		$l = (int) floor($j / 11);
+		$gregorianMonth = $j + 2 - 12 * $l;
+		$gregorianYear = 100 * ($n - 49) + $i + $l;
+		$candidate = new \DateTime(sprintf('%04d-%02d-%02d', $gregorianYear, $gregorianMonth, $gregorianDay), new \DateTimeZone('UTC'));
+		$target = [$year, $month, $day];
+		$low = -512;
+		$high = 512;
+		while ($low <= $high) {
+			$offset = (int) floor(($low + $high) / 2);
+			$check = clone $candidate;
+			if ($offset !== 0) {
+				$check->modify(($offset > 0 ? '+' : '') . $offset . ' days');
+			}
+			$checkYear = (int) $check->format('Y');
+			$checkMonth = (int) $check->format('n');
+			$checkDay = (int) $check->format('j');
+			$converted = $this->toJalaliDate($checkYear, $checkMonth, $checkDay);
+			if ($converted === $target) {
+				return [$checkYear, $checkMonth, $checkDay];
+			}
+			if ($converted < $target) {
+				$low = $offset + 1;
+			} else {
+				$high = $offset - 1;
+			}
+		}
+		throw new InvalidParamException('Jalali date is not supported by the calendar converter.');
+	}
+
+	/** Return the first date of a Jalali month as YYYY/MM/DD. */
+	function getJalaliMonthStartDate($year, $month)
+	{
+		$this->validateJalaliYearMonth($year, $month);
+		return sprintf('%04d/%02d/01', $year, $month);
+	}
+
+	/** Return the last date of a Jalali month as YYYY/MM/DD. */
+	function getJalaliMonthEndDate($year, $month)
+	{
+		return sprintf('%04d/%02d/%02d', $year, $month, $this->getDaysInJalaliMonth($year, $month));
+	}
+
+	/** Return the first and last dates of a Jalali month. */
+	function getJalaliMonthRange($year, $month)
+	{
+		return [
+			'start' => $this->getJalaliMonthStartDate($year, $month),
+			'end' => $this->getJalaliMonthEndDate($year, $month),
+		];
+	}
+
+	private function validateJalaliYearMonth($year, $month)
+	{
+		if (!is_numeric($year) || (int) $year < 1 || (int) $year != $year ||
+			!is_numeric($month) || (int) $month < 1 || (int) $month > 12 || (int) $month != $month) {
+			throw new InvalidParamException('Jalali year or month is invalid.');
+		}
+	}
+
 	function getDayNames()
 	{
 		return [
 			'saturday' => 'شنبه',
-			'sunday' => 'یکشنیه',
+			'sunday' => 'یکشنبه',
 			'monday' => 'دوشنبه',
 			'tuesday' => 'سه شنبه',
 			'wednesday' => 'چهارشنبه',

@@ -151,6 +151,17 @@
     border: 1px solid #bbb;
     border-radius: 2px;
 }
+.pdp-default .day.disabled, .pdp-default .day.disabled:hover{
+    color: #bbb;
+    background: #eee;
+    border-color: #eee;
+    cursor: not-allowed;
+}
+.pdp-default .day.hasReminder{position:relative}
+.pdp-default .reminderMarker{position:absolute;top:0;right:2px;font-size:10px;line-height:10px}
+.pdp-default .reminderDescription{box-sizing:border-box;width:100%;padding:6px 8px;background:#fff;border:1px solid #999;border-top:0;color:#444;font:normal 12px Tahoma;text-align:right;white-space:normal}
+.pdp-default .day.inRange{background:#d9efff;color:#24516c}
+.pdp-default .day:focus{outline:2px solid #0073ea;outline-offset:-2px}
 .pdp-default .selday, .pdp-default .selday:hover{
     background: #eadaa6;
     border-color: #eb5b04;

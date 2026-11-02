@@ -1,21 +1,53 @@
 {
-    "name": "mohammad-mahdy/yii2-jdate",
-    "description": "Jalali date & time.",
-    "type": "library",
-    "keywords": ["yii2", "yii", "yiiframeowrk", "persian date","extension","jDate","Jalali Data Time"],
-    "license": "BSD-3-Clause",
+    "name": "dehnavi/yii2-jdate",
+    "description": "Jalali date and time utilities and a range-capable date picker for Yii2.",
+    "type": "yii2-extension",
+    "keywords": [
+        "yii2",
+        "yii2-extension",
+        "jalali",
+        "persian-calendar",
+        "datepicker",
+        "date-range"
+    ],
+    "license": "BSD-3-Clause AND MIT",
     "authors": [
         {
             "name": "Mohammad Mahdi Gholamian",
             "email": "mm.gholamian@yahoo.com"
+        },
+        {
+            "name": "Mohammad Moein Hosseini Manesh",
+            "email": "moein7tl@gmail.com"
+        },
+        {
+            "name": "NabiKAZ",
+            "email": "NabiKAZ@gmail.com"
+        },
+        {
+            "name": "2012mjm",
+            "email": "2007mjm@gmail.com"
+        },
+        {
+            "name": "Hossein Dehnavi",
+            "email": "hossein.dehnavy@gmail.com",
+            "role": "Maintainer and author of fork contributions"
         }
     ],
     "require": {
-        "yiisoft/yii2": "*"
+        "php": ">=7.4",
+        "yiisoft/yii2": "^2.0"
     },
     "autoload": {
         "psr-4": {
-            "jDate\\": ""
+            "jDate\\": "src/"
         }
+    },
+    "homepage": "https://github.com/dehnavi/yii2-jdate",
+    "support": {
+        "source": "https://github.com/dehnavi/yii2-jdate"
+    },
+    "config": {
+        "sort-packages": true
     }
 }
